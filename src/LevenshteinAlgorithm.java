@@ -40,6 +40,38 @@ public class LevenshteinAlgorithm {
             }
         }
         printMatrix(matrixLevenshtein, firstWord, secondWord);
+        printOperations(matrixLevenshtein, firstWord, secondWord);
         return matrixLevenshtein[rows][columns];
+    }
+
+    private static void printOperations(int[][] matrix, String firstWord, String secondWord) {
+        System.out.println("\nOperations:");
+        int i = secondWord.length();
+        int j = firstWord.length();
+
+        while (i > 0 || j > 0) {
+            int cost = (secondWord.charAt(i - 1) == firstWord.charAt(j - 1)) ? 0 : 1;
+
+            if (i > 0 && j > 0 && matrix[i][j] == matrix[i - 1][j - 1] + cost) {
+                if (cost == 1) {
+                    System.out.println(i + ". Replace " + secondWord.charAt(i - 1) + " at position (" + i + ", " + j + ") with " + firstWord.charAt(j - 1));
+                }
+                i--;
+                j--;
+            } else if (i > 0 && matrix[i][j] == matrix[i - 1][j] + 1) {
+                System.out.println(i + ". Insert " + secondWord.charAt(i - 1) + " at position (" + i + ", " + j + ")");
+                i--;
+            } else if (j > 0 && matrix[i][j] == matrix[i][j - 1] + 1) {
+                System.out.println(i + ". Delete " + firstWord.charAt(j - 1) + " at position (" + i + ", " + j + ")");
+                j--;
+            } else {
+                if (cost == 1) {
+                    System.out.println(i + ". Replace " + secondWord.charAt(i - 1) + " at position (" + i + ", " + j + ") with " + firstWord.charAt(j - 1));
+                }
+                i--;
+                j--;
+            }
+        }
+
     }
 }
