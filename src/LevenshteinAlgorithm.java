@@ -21,6 +21,7 @@ public class LevenshteinAlgorithm {
         }
         System.out.println();
     }
+
     public static int calculateDistanceOfLevenshtein(String firstWord, String secondWord) {
         int columns = firstWord.length();
         int rows = secondWord.length();
@@ -48,13 +49,16 @@ public class LevenshteinAlgorithm {
         System.out.println("\nOperations:");
         int i = secondWord.length();
         int j = firstWord.length();
+        int cost = (secondWord.charAt(i - 1) == firstWord.charAt(j - 1)) ? 0 : 1;
 
         while (i > 0 || j > 0) {
-            int cost = (secondWord.charAt(i - 1) == firstWord.charAt(j - 1)) ? 0 : 1;
+            if (i > 0 && j > 0) {
+                cost = (secondWord.charAt(i - 1) == firstWord.charAt(j - 1)) ? 0 : 1;
+            }
 
             if (i > 0 && j > 0 && matrix[i][j] == matrix[i - 1][j - 1] + cost) {
                 if (cost == 1) {
-                    System.out.println(i + ". Replace " + secondWord.charAt(i - 1) + " at position (" + i + ", " + j + ") with " + firstWord.charAt(j - 1));
+                    System.out.println(i + ". Replace " + firstWord.charAt(j - 1) + " at position (" + i + ", " + j + ") with " + secondWord.charAt(i - 1));
                 }
                 i--;
                 j--;
@@ -66,7 +70,7 @@ public class LevenshteinAlgorithm {
                 j--;
             } else {
                 if (cost == 1) {
-                    System.out.println(i + ". Replace " + secondWord.charAt(i - 1) + " at position (" + i + ", " + j + ") with " + firstWord.charAt(j - 1));
+                    System.out.println(i + ". Replace " + firstWord.charAt(j - 1) + " at position (" + i + ", " + j + ") with " + secondWord.charAt(i - 1));
                 }
                 i--;
                 j--;

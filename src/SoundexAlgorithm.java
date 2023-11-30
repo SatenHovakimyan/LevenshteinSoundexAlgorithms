@@ -25,6 +25,8 @@ public class SoundexAlgorithm {
         }
         if(soundexBuilder.length() < 4) {
             soundexBuilder.append("0".repeat(Math.max(0, 4 - soundexBuilder.length())));
+        } else if(soundexBuilder.length() > 4) {
+            soundexBuilder.delete(5, soundexBuilder.length());
         }
         return soundexBuilder.toString();
     }
